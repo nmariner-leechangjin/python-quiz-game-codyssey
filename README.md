@@ -37,6 +37,7 @@ Python으로 터미널에서 실행하는 퀴즈 게임을 만듭니다. 메뉴�
 ```text
 .
 ├── .gitignore   # 로컬 데이터와 Python 생성 파일 제외
+├── python-quiz-game-codyssey.code-workspace  # VS Code에 저장소 이름으로 표시
 └── README.md    # 프로젝트 안내와 진행 상태
 ```
 
