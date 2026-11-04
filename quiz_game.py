@@ -149,7 +149,12 @@ class QuizGame:
             self.output_fn("퀴즈는 현재 실행에만 추가되었습니다. 저장 상태를 확인해 주세요.")
 
     def list_quizzes(self) -> None:
-        self.output_fn("퀴즈 목록은 준비 중입니다.")
+        if not self.quizzes:
+            self.output_fn("등록된 퀴즈가 없습니다.")
+            return
+        self.output_fn(f"\n등록된 퀴즈: {len(self.quizzes)}개")
+        for index, quiz in enumerate(self.quizzes, 1):
+            self.output_fn(f"{index}. {quiz.question}")
 
     def show_best_score(self) -> None:
         self.output_fn("점수 확인은 준비 중입니다.")
