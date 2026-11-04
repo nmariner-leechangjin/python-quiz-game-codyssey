@@ -88,6 +88,13 @@ class QuizGame:
                 continue
             return number
 
+    def prompt_text(self, prompt: str) -> str:
+        while True:
+            value = self.input_fn(prompt).strip()
+            if value:
+                return value
+            self.output_fn("입력값이 비어 있습니다. 다시 입력해 주세요.")
+
     def show_menu(self) -> None:
         self.output_fn("\n=== 파이썬 콘솔 퀴즈 게임 ===")
         for item in self.MENU:
@@ -130,7 +137,16 @@ class QuizGame:
         self.output_fn(f"결과: {len(self.quizzes)}문제 중 {correct}문제 정답")
 
     def add_quiz(self) -> None:
-        self.output_fn("퀴즈 추가는 준비 중입니다.")
+        question = self.prompt_text("문제: ")
+        choices = [
+            self.prompt_text(f"선택지 {index}: ") for index in range(1, 5)
+        ]
+        answer = self.prompt_number("정답 번호 (1~4): ", 1, 4)
+        self.quizzes.append(Quiz(question, choices, answer))
+        if self.save_state():
+            self.output_fn("퀴즈를 추가하고 저장했습니다.")
+        else:
+            self.output_fn("퀴즈는 현재 실행에만 추가되었습니다. 저장 상태를 확인해 주세요.")
 
     def list_quizzes(self) -> None:
         self.output_fn("퀴즈 목록은 준비 중입니다.")
