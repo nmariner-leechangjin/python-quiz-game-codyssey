@@ -3,6 +3,9 @@
 from pathlib import Path
 from typing import Callable
 
+from default_quizzes import make_default_quizzes
+from quiz import Quiz
+
 
 class QuizGame:
     MENU = (
@@ -22,7 +25,7 @@ class QuizGame:
         self.state_path = state_path or Path(__file__).resolve().parent / "state.json"
         self.input_fn = input_fn
         self.output_fn = output_fn
-        self.quizzes = []
+        self.quizzes: list[Quiz] = make_default_quizzes()
         self.best_score = None
 
     def prompt_number(self, prompt: str, minimum: int, maximum: int) -> int:
@@ -65,7 +68,20 @@ class QuizGame:
             self.output_fn("\n입력이 중단되어 안전하게 종료합니다.")
 
     def play(self) -> None:
-        self.output_fn("퀴즈 풀기는 준비 중입니다.")
+        if not self.quizzes:
+            self.output_fn("등록된 퀴즈가 없습니다.")
+            return
+        correct = 0
+        for index, quiz in enumerate(self.quizzes, 1):
+            self.output_fn(f"\n문제 {index}/{len(self.quizzes)}")
+            self.output_fn(quiz.formatted())
+            selection = self.prompt_number("정답 번호 (1~4): ", 1, 4)
+            if quiz.is_correct(selection):
+                correct += 1
+                self.output_fn("정답입니다!")
+            else:
+                self.output_fn(f"오답입니다. 정답은 {quiz.answer}번입니다.")
+        self.output_fn(f"결과: {len(self.quizzes)}문제 중 {correct}문제 정답")
 
     def add_quiz(self) -> None:
         self.output_fn("퀴즈 추가는 준비 중입니다.")
