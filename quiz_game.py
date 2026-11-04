@@ -1,5 +1,7 @@
-"""메뉴와 게임 진행을 관리한다."""
+"""메뉴, 게임 진행, 로컬 상태 저장을 관리한다."""
 
+import json
+import os
 from pathlib import Path
 from typing import Callable
 
@@ -27,6 +29,48 @@ class QuizGame:
         self.output_fn = output_fn
         self.quizzes: list[Quiz] = make_default_quizzes()
         self.best_score = None
+        self.load_state()
+
+    def load_state(self) -> None:
+        try:
+            data = json.loads(self.state_path.read_text(encoding="utf-8"))
+            if not isinstance(data, dict) or "quizzes" not in data or "best_score" not in data:
+                raise ValueError("필수 항목이 없습니다.")
+            if not isinstance(data["quizzes"], list):
+                raise ValueError("퀴즈 목록 형식이 올바르지 않습니다.")
+            score = data["best_score"]
+            if score is not None and (
+                isinstance(score, bool) or not isinstance(score, int) or score < 0
+            ):
+                raise ValueError("최고 점수 형식이 올바르지 않습니다.")
+            quizzes = [Quiz.from_dict(item) for item in data["quizzes"]]
+        except FileNotFoundError:
+            return
+        except (OSError, UnicodeError, json.JSONDecodeError, ValueError, TypeError) as error:
+            self.output_fn(f"데이터 파일을 읽을 수 없어 기본 퀴즈로 시작합니다: {error}")
+            return
+        self.quizzes = quizzes
+        self.best_score = score
+
+    def save_state(self) -> bool:
+        data = {
+            "quizzes": [quiz.to_dict() for quiz in self.quizzes],
+            "best_score": self.best_score,
+        }
+        temp_path = self.state_path.with_name(self.state_path.name + ".tmp")
+        try:
+            with temp_path.open("w", encoding="utf-8") as file:
+                json.dump(data, file, ensure_ascii=False, indent=2)
+                file.write("\n")
+            os.replace(temp_path, self.state_path)
+            return True
+        except OSError as error:
+            self.output_fn(f"데이터 저장에 실패했습니다: {error}")
+            try:
+                temp_path.unlink(missing_ok=True)
+            except OSError:
+                pass
+            return False
 
     def prompt_number(self, prompt: str, minimum: int, maximum: int) -> int:
         while True:
@@ -61,11 +105,13 @@ class QuizGame:
                 self.show_menu()
                 choice = self.prompt_number("선택: ", 1, 5)
                 if choice == 5:
+                    self.save_state()
                     self.output_fn("게임을 종료합니다.")
                     return
                 actions[choice]()
         except (KeyboardInterrupt, EOFError):
             self.output_fn("\n입력이 중단되어 안전하게 종료합니다.")
+            self.save_state()
 
     def play(self) -> None:
         if not self.quizzes:
