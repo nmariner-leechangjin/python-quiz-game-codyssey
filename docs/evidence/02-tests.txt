@@ -1,0 +1,16 @@
+Command: python -m unittest discover -s tests -v
+
+test_add_quiz_survives_restart (test_quiz_game.QuizGameTests.test_add_quiz_survives_restart) ... ok
+test_bonus_random_question_order_uses_shuffled_copy (test_quiz_game.QuizGameTests.test_bonus_random_question_order_uses_shuffled_copy) ... ok
+test_corrupt_or_invalid_state_uses_default_quizzes (test_quiz_game.QuizGameTests.test_corrupt_or_invalid_state_uses_default_quizzes) ... ok
+test_empty_quiz_list_and_unplayed_score (test_quiz_game.QuizGameTests.test_empty_quiz_list_and_unplayed_score) ... ok
+test_keyboard_interrupt_and_eof_save_before_exit (test_quiz_game.QuizGameTests.test_keyboard_interrupt_and_eof_save_before_exit) ... ok
+test_menu_retries_empty_text_and_out_of_range_numbers (test_quiz_game.QuizGameTests.test_menu_retries_empty_text_and_out_of_range_numbers) ... ok
+test_play_result_and_best_score_survive_restart (test_quiz_game.QuizGameTests.test_play_result_and_best_score_survive_restart) ... ok
+test_quiz_rejects_invalid_schema (test_quiz_game.QuizGameTests.test_quiz_rejects_invalid_schema) ... ok
+test_write_failure_is_reported (test_quiz_game.QuizGameTests.test_write_failure_is_reported) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.047s
+
+OK
