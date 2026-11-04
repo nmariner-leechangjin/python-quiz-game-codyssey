@@ -94,3 +94,5 @@ python -m unittest discover -s tests -v
 | 별도 디렉터리에서 `clone`, 변경 후 `push`, 기존 디렉터리에서 `pull` | 코드 업로드 후 실습 |
 
 Git 이력과 원격 반영 여부는 각 단계에서 실제 명령 결과로 확인합니다.
+
+복제 실습: 별도 디렉터리에서 README를 수정하고 push한 뒤 원래 디렉터리에서 pull로 반영했습니다.
