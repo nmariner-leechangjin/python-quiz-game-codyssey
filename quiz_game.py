@@ -33,6 +33,8 @@ class QuizGame:
         self.load_state()
 
     def load_state(self) -> None:
+        # 읽기 순서: 정상 state.json을 먼저 읽는다. state.json.tmp는
+        # 쓰기 중간 파일이므로 권위 데이터로 읽지 않는다.
         try:
             data = json.loads(self.state_path.read_text(encoding="utf-8"))
             if not isinstance(data, dict) or "quizzes" not in data or "best_score" not in data:
@@ -98,6 +100,7 @@ class QuizGame:
 
     def show_menu(self) -> None:
         self.output_fn("\n=== 파이썬 콘솔 퀴즈 게임 ===")
+        self.output_fn("원하는 번호를 선택하세요. 1=풀기, 2=추가, 3=목록, 4=점수, 5=종료")
         for item in self.MENU:
             self.output_fn(item)
 
@@ -119,7 +122,13 @@ class QuizGame:
                 actions[choice]()
         except (KeyboardInterrupt, EOFError):
             self.output_fn("\n입력이 중단되어 안전하게 종료합니다.")
-            self.save_state()
+            saved = self.save_state()
+            status = "저장 완료" if saved else "저장 실패"
+            score = "없음" if self.best_score is None else f"{self.best_score}점"
+            self.output_fn(
+                f"현재 상태: 퀴즈 {len(self.quizzes)}개, 최고 점수 {score} / {status}"
+            )
+            self.output_fn(f"저장 위치: {self.state_path}")
 
     def play(self) -> None:
         if not self.quizzes:

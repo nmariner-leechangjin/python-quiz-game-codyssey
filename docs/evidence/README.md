@@ -15,5 +15,6 @@
 | `09-score-after-restart.txt` | 재실행 후 최고 점수 기록 |
 | `10-git-log.txt` | 커밋 17개와 브랜치 병합 그래프 |
 | `11-environment.txt` | Python·Git·원격 저장소 설정 기록 |
+| `12-clone-pull.png` | clone → 별도 수정/commit/push → pull 순서를 정리한 화면형 증빙 |
 
-Git 이력·복제·동기화 및 GitHub 화면은 완료 상태로 확인했습니다.
+Git 이력·복제·동기화 및 GitHub 화면은 완료 상태로 확인했습니다. `12-clone-pull.png`에는 실습 명령과 Fast-forward 반영 결과를 한 화면에 정리했습니다.

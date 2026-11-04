@@ -85,6 +85,8 @@ class QuizGameTests(unittest.TestCase):
                 )
                 game.run()
                 self.assertTrue(self.state_path.exists())
+                self.assertTrue(any("저장 위치" in x for x in self.output))
+                self.assertTrue(any("현재 상태" in x for x in self.output))
         self.assertTrue(any("안전하게 종료" in x for x in self.output))
 
     def test_write_failure_is_reported(self) -> None:
