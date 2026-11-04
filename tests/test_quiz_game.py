@@ -4,6 +4,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from default_quizzes import make_default_quizzes
 from quiz import Quiz
@@ -44,7 +45,8 @@ class QuizGameTests(unittest.TestCase):
     def test_play_result_and_best_score_survive_restart(self) -> None:
         answers = [str(quiz.answer) for quiz in make_default_quizzes()]
         game = self.game(answers)
-        game.play()
+        with patch("quiz_game.random.shuffle"):
+            game.play()
         self.assertEqual(6, game.best_score)
         self.assertIn("결과: 6문제 중 6문제 정답", self.output)
         restored = QuizGame(self.state_path, output_fn=self.output.append)
@@ -96,6 +98,16 @@ class QuizGameTests(unittest.TestCase):
             Quiz("질문", ["가", "나", "다", "라"], True)
         with self.assertRaises(ValueError):
             Quiz.from_dict({"question": "질문", "choices": ["가"]})
+
+    def test_bonus_random_question_order_uses_shuffled_copy(self) -> None:
+        game = self.game(["1"] * 6)
+        original_first = game.quizzes[0].question
+        original_last = game.quizzes[-1].question
+        with patch("quiz_game.random.shuffle", side_effect=lambda items: items.reverse()) as shuffle:
+            game.play()
+        self.assertTrue(shuffle.called)
+        self.assertTrue(self.output[1].startswith(original_last))
+        self.assertEqual(original_first, game.quizzes[0].question)
 
 
 if __name__ == "__main__":
