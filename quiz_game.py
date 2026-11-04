@@ -135,6 +135,10 @@ class QuizGame:
             else:
                 self.output_fn(f"오답입니다. 정답은 {quiz.answer}번입니다.")
         self.output_fn(f"결과: {len(self.quizzes)}문제 중 {correct}문제 정답")
+        if self.best_score is None or correct > self.best_score:
+            self.best_score = correct
+            self.output_fn("새 최고 점수입니다!")
+        self.save_state()
 
     def add_quiz(self) -> None:
         question = self.prompt_text("문제: ")
@@ -157,4 +161,7 @@ class QuizGame:
             self.output_fn(f"{index}. {quiz.question}")
 
     def show_best_score(self) -> None:
-        self.output_fn("점수 확인은 준비 중입니다.")
+        if self.best_score is None:
+            self.output_fn("아직 퀴즈를 풀지 않았습니다.")
+        else:
+            self.output_fn(f"최고 점수: {self.best_score}문제 정답")
