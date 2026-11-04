@@ -1,0 +1,9 @@
+Command: python --version
+Python 3.13.15
+
+Command: git --version
+git version 2.55.0.windows.4
+
+Command: git remote -v
+origin https://github.com/nmariner-leechangjin/python-quiz-game-codyssey.git (fetch)
+origin https://github.com/nmariner-leechangjin/python-quiz-game-codyssey.git (push)

@@ -1,0 +1,28 @@
+Command: git log --oneline --graph --decorate --all
+
+* bc2fb3d (HEAD -> main, origin/main) docs: record clone and pull practice
+* 1e938bf docs: record verified deliverables and local evidence
+* 2596ad0 feat: shuffle quiz order as selected bonus
+* 791b8c6 test: cover quiz flows persistence and input failures
+* 56b118d feat: track and persist best quiz score
+* 3b77156 feat: list stored quizzes and handle empty list
+* cd15946 feat: add validated quizzes and save them
+* 3202d06 feat: persist quiz state as UTF-8 JSON
+*   fdfa0e6 merge: quiz play feature
+|\\
+| * 574d30d (codex/quiz-play) feat: play every quiz and report results
+|/
+* d15ea28 feat: add six original Python basics quizzes
+* 0178cae feat: model four-choice quiz with validation
+* 1f42d61 feat: add console menu and validated number input
+* f6de855 docs: define quiz scope architecture and verification
+* 25234a0 chore: match VS Code workspace name to repository
+* d295ad7 docs: map README to final deliverables
+* c7c1154 chore: initialize Python quiz project
+
+Branches:
+  codex/quiz-play
+* main
+  remotes/origin/main
+
+Commit count: 17

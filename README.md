@@ -88,11 +88,23 @@ python -m unittest discover -s tests -v
 | --- | --- |
 | 로컬 Git 저장소와 첫 커밋 | 완료 |
 | GitHub 저장소 생성 | 완료 |
-| 프로젝트 코드 업로드 | 최종 검증 후 진행 |
-| 의미 있는 커밋 10개 이상 | 로컬 이력에서 확인 |
+| 프로젝트 코드 업로드 | 완료 (`main` push) |
+| 의미 있는 커밋 10개 이상 | 완료 (17개) |
 | 추가 브랜치 생성과 `main` 병합 | `codex/quiz-play`에서 개발 후 `main` 병합 |
-| 별도 디렉터리에서 `clone`, 변경 후 `push`, 기존 디렉터리에서 `pull` | 코드 업로드 후 실습 |
+| 별도 디렉터리에서 `clone`, 변경 후 `push`, 기존 디렉터리에서 `pull` | 완료 및 반영 확인 |
 
-Git 이력과 원격 반영 여부는 각 단계에서 실제 명령 결과로 확인합니다.
+Git 이력과 원격 반영 여부는 실제 명령 결과로 확인했습니다. 제출용 기록은 `docs/evidence/`에 있습니다.
+
+### 제출용 증빙
+
+- `01-vscode-project.png`: VS Code 작업 영역과 파일
+- `02-tests.txt`: 자동 테스트 9개 통과
+- `03-console-flow.txt`: 메뉴·잘못된 입력·목록·점수·종료
+- `06-add-quiz.txt`: 퀴즈 추가
+- `07-list-after-restart.txt`: 재실행 후 목록 유지
+- `08-play-quiz.txt`: 퀴즈 플레이와 결과
+- `09-score-after-restart.txt`: 재실행 후 최고 점수 유지
+- `10-git-log.txt`: 브랜치·병합 및 커밋 그래프
+- `11-environment.txt`: Python·Git·원격 저장소 설정
 
 복제 실습: 별도 디렉터리에서 README를 수정하고 push한 뒤 원래 디렉터리에서 pull로 반영했습니다.

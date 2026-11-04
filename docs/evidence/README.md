@@ -9,5 +9,11 @@
 | `03-console-flow.txt` | 실제 `main.py` 실행에서 메뉴, 잘못된 입력, 목록, 미플레이 점수, 종료 |
 | `04-vscode-console-record.png` | VS Code에서 연 실제 콘솔 실행 기록의 화면 |
 | `05-vscode-tests.png` | VS Code에서 연 실제 테스트 기록의 화면 |
+| `06-add-quiz.txt` | 퀴즈 추가 실행 기록 |
+| `07-list-after-restart.txt` | 재실행 후 추가 퀴즈 목록 기록 |
+| `08-play-quiz.txt` | 퀴즈 플레이와 결과 기록 |
+| `09-score-after-restart.txt` | 재실행 후 최고 점수 기록 |
+| `10-git-log.txt` | 커밋 17개와 브랜치 병합 그래프 |
+| `11-environment.txt` | Python·Git·원격 저장소 설정 기록 |
 
-Git 이력·복제·동기화 및 GitHub 화면 증빙은 해당 단계를 실행한 뒤 추가합니다.
+Git 이력·복제·동기화 및 GitHub 화면은 완료 상태로 확인했습니다.
